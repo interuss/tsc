@@ -94,7 +94,7 @@ a. The Project will:
 
 &nbsp;&nbsp;&nbsp;&nbsp; ii. respect the rights of all trademark owners, including any branding and trademark usage guidelines.
 
-7. Intellectual Property Policy
+### 7. Intellectual Property Policy
 
 a. Collaborators acknowledge that the copyright in all new contributions will be retained by the copyright holder as independent works of authorship and that no contributor or copyright holder will be required to assign copyrights to the Project. 
 
