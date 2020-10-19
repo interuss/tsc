@@ -27,7 +27,7 @@ The InterUSS Project maintains a [public calendar](https://join.slack.com/t/inte
 ## Members
 
 The TSC voting members are intially the project's committers, and the current TSC chair is Benjamin Pelletier [
-@BenjaminPelletier](https://github.com/BenjaminPelletier). At the inception of the project, the Committers of the Project will be as set forth within the "CONTRIBUTING" file within the project's code repository. 
+@BenjaminPelletier](https://github.com/BenjaminPelletier). At the inception of the project, the Committers of the Project will be as set forth within the ["CONTRIBUTING"](CONTRIBUTING.md) file within the project's code repository. 
 
 ## Policies and Procedures
 
