@@ -22,7 +22,7 @@ Once you join the [InterUSS Slack Workspace](https://join.slack.com/t/interuss/s
 
 ### Calendars and Meetings
 
-The InterUSS Project maintains a [public calendar](https://join.slack.com/t/interuss/shared_invite/enQtNzg0OTcxOTIyNjc0LTQyYzM1MTljYWU1NDRkNjFkZmFlYjA0YTgwNjQ5N2U5OTVhMzBlZjY4NWE3YTgwYzVjNzg3ZjE5ZjRjM2M0ODQ) for TSC meetings. These meetings are open for anyone to join.
+The InterUSS Project maintains a [public calendar](https://calendar.google.com/calendar/embed?src=c_nn4qg3tof1c73pmrbq7eor1muo%40group.calendar.google.com&ctz=America%2FChicago) for TSC meetings. These meetings are open for anyone to join.
 
 ## Members
 
