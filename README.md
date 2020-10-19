@@ -31,7 +31,7 @@ The TSC voting members are intially the project's committers, and the current TS
 
 ## Policies and Procedures
 
-The InterUSS TSC is governed by the [Technical Charter](CHARTER.md). The Charter provides a foundational structure for the TSC on topics such as its scope, how to make decisions, and how to make changes to itself.  At the same time, it grants the TSC a high degree of freedom when determining how to implement the policies of the Presto Foundation.
+The InterUSS TSC is governed by the [Technical Charter](CHARTER.md). The Charter provides a foundational structure for the TSC on topics such as its scope, how to make decisions, and how to make changes to itself.  At the same time, it grants the TSC a high degree of freedom when determining how to implement the policies of InterUSS. 
 
 The following policies and procedures have been adopted by the TSC.
 
