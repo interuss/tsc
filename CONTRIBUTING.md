@@ -1,5 +1,3 @@
-# DRAFT
-
 # Contributing to InterUSS
 
 ## Contributor License Agreement ("CLA")
