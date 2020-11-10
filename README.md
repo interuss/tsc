@@ -10,15 +10,13 @@ The InterUSS Technical Charter is located in [CHARTER.md](CHARTER.md)
 
 ## Collaboration Tools
 
-### Mailing List
-
-The TSC for InterUSS can be reached at their [mailing list]()
-
 ### Slack
 
-The InterUSS project maintains a [Slack Workspace](interuss.slack.com) for communication and collaboration. The [InterUSS Project Slack Workspace](https://join.slack.com/t/interuss/shared_invite/enQtNzg0OTcxOTIyNjc0LTQyYzM1MTljYWU1NDRkNjFkZmFlYjA0YTgwNjQ5N2U5OTVhMzBlZjY4NWE3YTgwYzVjNzg3ZjE5ZjRjM2M0ODQ) is open for anyone to join.
+The InterUSS project maintains a [Slack Workspace](https://interuss.slack.com) for communication and collaboration.  This workspace is [open for anyone to join](https://join.slack.com/t/interuss/shared_invite/enQtNzg0OTcxOTIyNjc0LTQyYzM1MTljYWU1NDRkNjFkZmFlYjA0YTgwNjQ5N2U5OTVhMzBlZjY4NWE3YTgwYzVjNzg3ZjE5ZjRjM2M0ODQ).  Once you join the Slack Workspace, you can participate in any public channels. 
 
-Once you join the [InterUSS Slack Workspace](https://join.slack.com/t/interuss/shared_invite/enQtNzg0OTcxOTIyNjc0LTQyYzM1MTljYWU1NDRkNjFkZmFlYjA0YTgwNjQ5N2U5OTVhMzBlZjY4NWE3YTgwYzVjNzg3ZjE5ZjRjM2M0ODQ), you can participate in any public channels. 
+### Mailing List
+
+The TSC for InterUSS can be reached in the #tsc channel of the Slack workspace, or at the [DSS development mailing list](https://groups.io/g/dss-interuss).
 
 ### Calendars and Meetings
 
@@ -26,8 +24,8 @@ The InterUSS Project maintains a [public calendar](https://calendar.google.com/c
 
 ## Members
 
-The TSC voting members are intially the project's committers, and the current TSC chair is Benjamin Pelletier [
-@BenjaminPelletier](https://github.com/BenjaminPelletier). At the inception of the project, the Committers of the Project will be as set forth within the ["CONTRIBUTING"](CONTRIBUTING.md) file within the project's code repository. 
+The TSC voting members are initially the project's Committers, and the current TSC chair is Benjamin Pelletier [
+@BenjaminPelletier](https://github.com/BenjaminPelletier).  The Committers of the Project are listed in the ["CONTRIBUTING"](CONTRIBUTING.md) file. 
 
 ## Policies and Procedures
 
@@ -44,16 +42,16 @@ Per the [charter](CHARTER.md), wherever possible the TSC will attempt to make de
 Pull requests that do not change the charter or governance of the TSC can be merged into this repository provided the following conditions have been met:
 
 * There are no outstanding objections
-* There are two approvals by TSC members
+* There is at least one approval by a TSC member
 * The PR has been open for at least 72 hours
 
 Pull requests that change governance of the TSC (excluding the charter) must be open for at least 14 days, unless consensus is reached in a meeting with quorum of voting members.
 
-Pull requests that change the charter of the TSC must meet any requirements in the [charter](CHARTER.md).
+Pull requests that [amend](CHARTER.md#8-amendments) the charter of the TSC must meet any requirements in the charter.
 
-If consensus cannot be reached, a pull request may still be landed after a vote by the Voting members to override outstanding objections.
+If consensus cannot be reached, a pull request may still be merged after a vote by the Voting members to override outstanding objections.
 
-### Fast-Tracking PRs
+#### Fast-Tracking PRs
 
 Special exception is made for pull requests seeking to make any of the following changes to this repository:
 

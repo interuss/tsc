@@ -7,3 +7,9 @@ In order to accept your pull request, we need you to submit a CLA. You only need
 ## License
 
 By contributing to InterUSS, you agree that your contributions will be licensed under the [Apache License Version 2.0 (APLv2)](LICENSE).
+
+## Committers
+
+The current Committers of the project are
+
+* (initial list to be approved by governing board)

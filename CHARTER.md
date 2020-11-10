@@ -13,7 +13,7 @@ a. The mission of the Project is to develop an open source, simple, secure and s
 
 b. The scope of the Project includes open collaborative development under the Project License (as defined herein) supporting the mission, including documentation, testing, integration and the creation of other artifacts that aid the development, deployment, operation or adoption of the open source project.
 
-### 1. Technical Steering Committee
+### 2. Technical Steering Committee
 
 a. The Technical Steering Committee (the “TSC”) will be responsible for all technical oversight of the open source Project. 
 
@@ -38,7 +38,7 @@ f. The TSC may elect a TSC Chair, who will preside over meetings of the TSC and 
 g. Responsibilities: The TSC will be responsible for all aspects of oversight relating to the Project, which may include:
 
 
-&nbsp;&nbsp;&nbsp;&nbsp; i. &nbsp;&nbsp;&nbsp;&nbsp; coordinating the technical direction of the Project;
+&nbsp;&nbsp;&nbsp;&nbsp; i. coordinating the technical direction of the Project;
 
 &nbsp;&nbsp;&nbsp;&nbsp; ii. approving project or system proposals (including, but not limited to, incubation, deprecation, and changes to a sub-project’s scope);
 
@@ -86,7 +86,7 @@ b. The Project will, as permitted and in accordance with such license from LF Pr
 
 c. Under no circumstances will LF Projects be expected or required to undertake any action on behalf of the Project that is inconsistent with the tax-exempt status or purpose, as applicable, of Joint Development Foundation or LF Projects, LLC.
 
-6. General Rules and Operations. 
+### 6. General Rules and Operations. 
 
 a. The Project will:
 
