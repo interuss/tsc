@@ -24,8 +24,19 @@ The InterUSS Project maintains a [public calendar](https://calendar.google.com/c
 
 ## Members
 
-The TSC voting members are initially the project's Committers, and the current TSC chair is Benjamin Pelletier [
-@BenjaminPelletier](https://github.com/BenjaminPelletier).  The Committers of the Project are listed in the ["CONTRIBUTING"](CONTRIBUTING.md) file. 
+The current TSC voting members are listed below.
+
+* [Benjamin Pelletier](https://github.com/BenjaminPelletier) (chair)
+
+TSC voting members may be added or removed by a standard TSC vote as described in the [Technical Charter](CHARTER.md).  Evaluation of the suitability of a candidate for membership on the TSC should be based primarily on:
+
+1. Ongoing technical involvement with the project as demonstrated by recurring contributions over the past 90 days
+1. Availability to perform TSC duties
+1. Track record of success with activities similar to TSC responsibilities including:
+    1. Proposing best technical strategies following documentation and evaluation of trade-offs
+    1. Establishing contribution guidelines, community norms, workflows, processes, release requirements, templates or other direction-setting resources
+    1. Facilitating discussions and seeking consensus
+    1. Coordinating with stakeholders outside the technical community
 
 ## Policies and Procedures
 

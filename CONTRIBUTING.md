@@ -12,4 +12,4 @@ By contributing to InterUSS, you agree that your contributions will be licensed 
 
 The current Committers of the project are
 
-* (initial list to be approved by governing board)
+* Benjamin Pelletier
