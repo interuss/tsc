@@ -24,11 +24,9 @@ The InterUSS Project maintains a [public calendar](https://calendar.google.com/c
 
 ## Members
 
-The current TSC voting members are listed below.
+The current TSC voting members are listed in the [CONTRIBUTING](CONTRIBUTING.md) file in accordance with the [Technical Charter](CHARTER.md).
 
-* [Benjamin Pelletier](https://github.com/BenjaminPelletier) (chair)
-
-TSC voting members may be added or removed by a standard TSC vote as described in the [Technical Charter](CHARTER.md).  Evaluation of the suitability of a candidate for membership on the TSC should be based primarily on:
+TSC voting members may be added or removed by a standard TSC vote as described in the [Technical Charter](CHARTER.md#2-technical-steering-committee).  Evaluation of the suitability of a candidate for membership on the TSC should be based primarily on:
 
 1. Ongoing technical involvement with the project as demonstrated by recurring contributions over the past 90 days
 1. Availability to perform TSC duties

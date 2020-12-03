@@ -10,6 +10,14 @@ By contributing to InterUSS, you agree that your contributions will be licensed 
 
 ## Committers
 
-The current Committers of the project are
+The current Committers of the project are:
 
 * Benjamin Pelletier
+
+## Technical Steering Committee
+
+The voting members of the Technical Steering Committee are:
+
+* [Benjamin Pelletier](https://github.com/BenjaminPelletier) (chair)
+
+Voting members may be added to or removed from the TSC via the procedure described in the [README](README.md#members).
