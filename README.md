@@ -4,9 +4,9 @@
 
 The InterUSS TSC will be responsible for all technical oversight of the open source Project.
 
-## InterUSS Technical Charter
+## InterUSS Charters
 
-The InterUSS Technical Charter is located in [CHARTER.md](CHARTER.md)
+The InterUSS Technical Charter is located in [CHARTER.md](CHARTER.md).  Note that, under the InterUSS Platform Fund Charter, "Any decision made by the Technical Steering committee is subject to review and approval by the Governing Board."
 
 ## Collaboration Tools
 
@@ -80,7 +80,7 @@ TSC members may request fast-tracking of pull requests they did not author. In t
 
 ### IP Policy
 
-The [InterUSS IP Policy](https://github.com/interuss/tsc/blob/main/CHARTER.md#7-intellectual-property-policy) is defined in the [charter](CHARTER.md), and it applies unless an exception is explicitly approved by the TSC.
+The [InterUSS IP Policy](https://github.com/interuss/tsc/blob/main/CHARTER.md#7-intellectual-property-policy) is defined in the [charter](CHARTER.md), and it applies unless an exception is explicitly approved by the governing board.
 
 #### Copyright Notices
 
