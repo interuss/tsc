@@ -1,5 +1,3 @@
-# DRAFT
-
 # InterUSS Technical Steering Committee (TSC)
 
 The InterUSS TSC will be responsible for all technical oversight of the open source Project.
