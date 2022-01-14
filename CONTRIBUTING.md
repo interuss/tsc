@@ -19,5 +19,6 @@ The current Committers of the project are:
 The voting members of the Technical Steering Committee are:
 
 * [Benjamin Pelletier](https://github.com/BenjaminPelletier) (chair)
+* [Michael Barroco](github.com/barroco)
 
 Voting members may be added to or removed from the TSC via the procedure described in the [README](README.md#members).
