@@ -4,6 +4,8 @@ The InterUSS TSC will be responsible for all technical oversight of the open sou
 
 ## Documents
 
+* [GUTMA Harmonized Skies 2022 presentation on the Open Source Test Suite](assets/GUTMA_HS22_AnsweringQuestions.md)
+    * [Slides](assets/GUTMA_HS22_AnsweringQuestions.pdf)
 * [World ATM Congress 2022 presentation on the Open Source Test Suite](assets/WATMC22_InterUSSOpenSourceTestSuite.pdf)
 
 ## InterUSS Charters
