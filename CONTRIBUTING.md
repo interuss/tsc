@@ -14,6 +14,7 @@ The current Committers of the project are:
 
 * Benjamin Pelletier
 * Michael Barroco
+* Mickaël Misbach
 
 ## Technical Steering Committee
 
