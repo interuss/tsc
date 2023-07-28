@@ -8,6 +8,10 @@ The InterUSS TSC will be responsible for all technical oversight of the open sou
     * [Slides](assets/GUTMA_HS22_AnsweringQuestions.pdf)
 * [World ATM Congress 2022 presentation on the Open Source Test Suite](assets/WATMC22_InterUSSOpenSourceTestSuite.pdf)
 
+### Proposals
+
+* [Rules-Based Verification of Geospatial Feature Comprehension and Flight Authorization](assets/Rules-Based Verification of Geospatial Feature Comprehension and Flight Authorization.pdf)
+
 ## InterUSS Charters
 
 The InterUSS Technical Charter is located in [CHARTER.md](CHARTER.md).  Note that, under the InterUSS Platform Fund Charter, "Any decision made by the Technical Steering committee is subject to review and approval by the Governing Board."
