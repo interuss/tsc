@@ -2,6 +2,10 @@
 
 The InterUSS TSC will be responsible for all technical oversight of the open source Project.
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for information regarding contributing to InterUSS.
+
 ## Documents
 
 * [GUTMA Harmonized Skies 2022 presentation on the Open Source Test Suite](assets/GUTMA_HS22_AnsweringQuestions.md)
@@ -22,9 +26,14 @@ The InterUSS Technical Charter is located in [CHARTER.md](CHARTER.md).  Note tha
 
 The InterUSS project maintains a [Slack Workspace](https://interuss.slack.com) for communication and collaboration.  This workspace is [open for anyone to join](https://join.slack.com/t/interuss/shared_invite/enQtNzg0OTcxOTIyNjc0LTQyYzM1MTljYWU1NDRkNjFkZmFlYjA0YTgwNjQ5N2U5OTVhMzBlZjY4NWE3YTgwYzVjNzg3ZjE5ZjRjM2M0ODQ).  Once you join the Slack Workspace, you can participate in any public channels. 
 
-### Mailing List
+### Mailing Lists
 
-The TSC for InterUSS can be reached in the #tsc channel of the Slack workspace, or at the [DSS development mailing list](https://groups.io/g/dss-interuss).
+The TSC for InterUSS can be reached in the #tsc channel of the [Slack workspace](#slack), or at one of the mailing lists:
+
+* [General InterUSS group](https://lists.interussplatform.org/g/main)
+* [TSC group](https://lists.interussplatform.org/g/tsc)
+* [DSS development group](https://lists.interussplatform.org/g/dss)
+* [Automated testing development group](https://lists.interussplatform.org/g/automated-testing)
 
 ### Calendars and Meetings
 

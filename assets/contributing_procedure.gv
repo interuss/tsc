@@ -1,0 +1,61 @@
+// Render with: dot contributing_procedure.gv -Tsvg -o contributing_procedure.svg
+
+digraph {
+  node [shape=box]
+  rankdir=LR
+
+  Desire [label="Want to make\na change",URL="#want-to-make-a-change"]
+
+  subgraph cluster_Collaboration {
+    label="Slack and/or mailing lists"
+    style=dashed
+
+    DiscussApproach [label="Discuss approach",URL="#discuss-approach"]
+    DesignDoc [label="Create or update\ndesign doc",URL="#create-or=update-design-doc"]
+  }
+
+  subgraph cluster_GitHub {
+    label="GitHub"
+    style=dashed
+    Fork [label="Fork interuss\nrepository",URL="#fork-interuss-repository"]
+    CreateDraftPR [label="Create draft PR in\ninteruss repository",URL="#create-draft-pr-in-interuss-repository"]
+    CheckCIResults [label="Check CI results",URL="#check-ci-results"]
+    ReadyForReview [label="Mark PR ready\nfor review",URL="#mark-pr-ready-for-review"]
+    DebugCIResults [label="Inspect CI logs",URL="#inspect-ci-logs"]
+    RequestCommitterHelp [label="Request committer help\nvia comment in PR",URL="#request-committer-help-via-comment-in-PR"]
+    Merged [label="PR merged",shape=octagon,URL="#pr-merged"]
+    RevertToDraft [label="Convert PR\nto draft",URL="#convert-pr-to-draft"]
+    CreateIssue [label="Create Issue in\nrepo describing\napproach",URL="#create-issue-in-repo-describing-approach"]
+  }
+
+  subgraph cluster_DevMachine {
+    label="Dev machine"
+    style=dashed
+    Clone [label="Clone/pull latest\ninteruss version",URL="#clone-pull-latest-interuss-version"]
+    Branch [label="Create new branch",URL="#create-new-branch"]
+    MakeChanges [label="Make changes",URL="#make-changes"]
+    TestChanges [label="Test changes",URL="#test-changes"]
+    PushChanges [label="Push branch\nto GitHub fork",URL="#push-branch-to-github-fork"]
+  }
+
+  Desire -> Fork [label="Change is\nnot large",URL="#large-contributions"]
+  Desire -> CreateIssue [label="Change is large",URL="#large-contributions"]
+  CreateIssue -> Fork [label="Committers agree\non approach"]
+  Desire -> DiscussApproach [label="Approach is\nnot clear"]
+  DiscussApproach -> Desire [label="Approach is clear"]
+  Fork -> Clone -> Branch -> MakeChanges -> TestChanges
+  TestChanges -> MakeChanges [label="Tests fail"]
+  TestChanges -> PushChanges [label="Tests pass"]
+  PushChanges -> CreateDraftPR [label="First push"]
+  CreateDraftPR -> CheckCIResults
+  CheckCIResults -> ReadyForReview [label="CI passes"]
+  CheckCIResults -> DebugCIResults [label="CI fails"]
+  DebugCIResults -> MakeChanges [label="CI failure due\nto isssue in PR"]
+  DebugCIResults -> RequestCommitterHelp [label="CI failure not\nfault of PR"]
+  ReadyForReview -> Merged [label="Committer approves\nthen merges"]
+  ReadyForReview -> RevertToDraft [label="Committer's comments\nsuggest changes"]
+  RevertToDraft -> MakeChanges
+  PushChanges -> CheckCIResults [label="Subsequent\npushes"]
+  DiscussApproach -> DesignDoc [label="Approach requires\nmore specificity"]
+  DesignDoc -> DiscussApproach
+}
