@@ -159,6 +159,8 @@ Once an [InterUSS committer](CONTRIBUTING.md#committers) approves the PR, they o
 
 Given the critical nature of the content of most InterUSS repositories, contributions require careful review.  Large contributions often require substantial resources to review (much more than the sum of small PRs leading to the same result), so a [general principle](#general-principles) is that PRs should be small and focused.
 
+A "large contribution" cannot have an easy, unambiguous definition as "large" depends on the complexity of the contribution (which relates to difficulty of review).  A very dense and complex contribution with many downstream effects may be "large" with only tens of lines of changes, whereas a conceptually-simple refactoring change that has hundreds or even thousands of lines of changes may not be large.  However, an anchor is that PRs gathering more than 10 initial comments from committers or 30 total comments from committers may be considered "large".
+
 Sometimes, however, large changes cannot be reasonably avoided.  In this case, to ensure that large contributions don't have a negative impact on the quality of the reviews, the following steps help ensure your contribution gets merged progressively, maximizing knowledge sharing between contributors and committers.
 
 #### Initial discussion
