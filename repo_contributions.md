@@ -141,7 +141,7 @@ Once an [InterUSS committer](CONTRIBUTING.md#committers) approves the PR, they o
 
 ## General principles
 
-1. Changes to resources in InterUSS repositories should usually be handled through a [Pull Request (PR)](https://docs.github.com/en/get-started/quickstart/contributing-to-projects).
+1. Changes to resources in InterUSS repositories should usually be handled through a [Pull Request (PR)](https://docs.github.com/en/get-started/quickstart/contributing-to-projects).  Main/master branch changes must always be handled through a pull request.
 
 1. No PR on the main branch can be merged without being reviewed.
 
