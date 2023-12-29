@@ -5,6 +5,8 @@ when adding or modifying Python code in InterUSS repositories.  When guidelines
 below suggest different actions, the guideline nearest the top of this document
 should generally take precedence.
 
+General style guidelines may be found [in a separate document](general_style_guide.md).
+
 ## [Black](https://black.readthedocs.io/en/stable/)
 
 Black automatically formats Python code and can be invoked with `make format`.
@@ -46,6 +48,31 @@ is encouraged.
 Documentation should not consist solely of a reiteration of a component's name.
 If that is sufficient documentation, then comment-based documentation  is not
 necessary.
+
+Docstrings should not have any empty values.  If documentation is not needed
+for a particular parameter, return type, etc, that part of the docstring should
+be omitted:
+
+Yes (assuming the purpose and usage of `bar` is obvious):
+```python
+def foo(bar: int, baz: str) -> None:
+    """Foos the bar and baz.
+    
+    Args:
+        baz: Name of a thing.
+    """
+```
+
+No:
+```python
+def foo(bar: int, baz: str) -> None:
+    """Foos the bar and baz.
+    
+    Args:
+        bar:
+        baz: Name of a thing.
+    """
+```
 
 ## Data structures
 
@@ -89,16 +116,6 @@ my_implicitdict = MyObject(field1="foo", field2="bar")
 x = my_implicitdict.field1
 y = my_implicitdict.field2
 ```
-
-## Magic strings
-
-Generally avoid repeating the same string literal in multiple places.  If a
-string is used in many places, it should generally be defined as a
-[constant](https://peps.python.org/pep-0008/#constants) and then that constant
-should be used instead.  This allows all instances to be discovered easily with
-an appropriate IDE, and it ensures that no typos are made in the literals.
-
-Docstrings for non-obvious constants are encouraged.
 
 ## Default Python styles
 

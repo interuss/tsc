@@ -149,7 +149,7 @@ Once an [InterUSS committer](CONTRIBUTING.md#committers) approves the PR, they o
 
 1. Before your PR can be accepted, you must submit a Contributor License Agreement (CLA). See [here](https://github.com/interuss/tsc/blob/main/CONTRIBUTING.md#contributor-license-agreement-cla) for more details.
 
-1. Contributions involving Python code should generally follow the [InterUSS Python style guide](python_style_guide.md).
+1. Contributions should generally follow the [InterUSS general style guide](general_style_guide.md) and the [InterUSS Python style guide](python_style_guide.md) for Python code.
 
 1. The size/complexity of individual PRs is a key factor with respect to the quality and efficiency of the reviews. When [Large Contributions](#large-contributions) are required, they should be structured as a series of small and focused PRs. Here are some helpful references:
     - [Strategies For Small, Focused Pull Requests, Steve Hicks](https://artsy.github.io/blog/2021/03/09/strategies-for-small-focused-pull-requests/)
