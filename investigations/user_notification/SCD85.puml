@@ -1,0 +1,82 @@
+@startuml
+autonumber
+!theme reddress-lightblue
+skinparam BoxPadding 10
+skinparam roundcorner 20
+skinparam SequenceGroupHeaderFontColor darkblue
+skinparam SequenceGroupFontColor darkblue
+skinparam SequenceBoxBackgroundColor White
+skinparam shadowing false
+
+
+center header Strategic Conflict Detection
+title Operational Intent Details Subscription Push Notification
+
+participant "Test Driver" as TD
+participant "Other USS" as OUSS
+participant "DSS" as DSS
+box ""USS under test""
+    participant "USS" as USS
+    participant "USS Interface" as USSInter
+end box
+
+
+
+
+== Setup ==
+' clear area
+TD -> OUSS++: Inject clear area request\nPOST /uss/v1/inject/clear_area_request
+return 200, {"outcome": {"success": true, "message": {}, "details": {}}}
+
+' record interactions for the endpoint
+TD -> OUSS++: Record endpoint interactions\nPOST /uss/v1/mock/record/{endpoint}
+return 202, {"endpoint_id": ...}
+note right
+TBD endpoint receiving the operational intent details notification
+end note
+
+' inject OUSS area of interest subscription
+TD -> DSS++: Inject OUSS area of interest subscription for operational intents\nPUT /dss/v1/subscriptions/{subscription_id}
+return 200, {"subscription": {...}, "operational_intent_references": [], "constraint_references": []}
+
+
+
+== Test ==
+' inject SUT planned operational intent modification (upsert)
+TD -> USSInter++: Inject operational intent(planned)\nPUT /uss/v1/inject/flights/{flight_id}
+USS -> DSS++: PUT /dss/v1/operational_intent_references/{entity_id}
+return 201, {"subscribers": [], "operational_intent_reference": {...}}
+TD <-- USSInter--: 200, {"planning_result": "Completed", "flight_plan_status": "Planned", ...}
+
+
+' OUSS subscription notification
+USS -> OUSS++: Notify operational intent details\nPOST /uss/v1/operational_intents
+USS <-- OUSS--: 204
+OUSS -> OUSS++--: Record interaction
+
+TD -> TD: wait 12 seconds
+' Gaussian distribution 2.5 seconds mean, 1.25 seconds standard deviation covers Conflictingoimaxusernotificationtime .95 of the time waiting 7 seconds cover .9998. Also 5 additional seconds to allow for delay in test setup.
+
+
+' retrieve notifications
+TD -> OUSS: Retrieve recorded interactions\nGET /uss/v1/mocks/record/{endpoint_id}
+return 200, {"interactions": [...]}
+
+loop For every recorded operational intent changed interaction
+    alt #GhostWhite Pass: OUSS was notified
+        TD -> TD--: recorded interaction matches the USS URL
+    else #Pink Failure: OUSS was not notified
+        TD -> TD--: No recorded interaction matches the USS URL
+    end
+end
+
+
+== Teardown ==
+' terminate operational intent
+TD -> USSInter++: Remove operational intent\nDELETE /uss/v1/inject/flights/{flight_id}
+USS -> DSS++: DELETE /dss/v1/operational_intent_references/{entity_id}/{ovn}
+return 200, {"subscribers": [], "operational_intent_reference": {...}}
+TD <-- USSInter--: 200, {"planning_result": "Completed", "flight_plan_status": "Closed", ...}
+
+@enduml
+ 
