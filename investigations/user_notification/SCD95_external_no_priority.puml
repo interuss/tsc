@@ -1,0 +1,207 @@
+@startuml
+autonumber
+!theme reddress-lightblue
+skinparam BoxPadding 10
+skinparam roundcorner 20
+skinparam SequenceGroupHeaderFontColor darkblue
+skinparam SequenceGroupFontColor darkblue
+skinparam SequenceBoxBackgroundColor White
+skinparam shadowing false
+
+
+center header Strategic Conflict Detection
+title Notification to Operator of Existing Operational Intent Due to Disallowed Conflict with External Equal Priority New and Modified Operational Intent
+
+participant "Test Driver" as TD
+participant "Other USS" as OUSS
+participant "DSS" as DSS
+box ""USS under test""
+    participant "USS" as USS
+    participant "Automated Testing Interfaces" as USSInter
+end box
+
+== Setup ==
+' Clear area
+TD -> OUSS++: Inject clear area request\nPOST /clear_area_requests
+return 200, {"outcome": {"success": true, "message": {}, "details": {}}}
+
+TD -> USSInter++: Inject clear area request\nPOST /clear_area_requests
+return 200, {"outcome": {"success": true, "message": {}, "details": {}}}
+ 
+== Test Case 1 - Test New Conflicting Operational Intent ==
+ 
+' Test Case 1: attempt to create OI with conflict is rejected and user notified 
+
+' Inject operational intent in planned state
+TD -> USSInter++: Inject operational intent (Planned)\nPUT /flight_plans/{flight_id}
+USS -> DSS++: PUT /dss/v1/operational_intent_references/{entity_id}
+return 201, {"subscribers": [], "operational_intent_reference": {...}}
+alt #GhostWhite Pass: Accepted
+        TD <-- USSInter: 200, {"planning_result": "Completed"}
+else #Pink Failure: Rejected
+        TD <-- USSInter--: 200, {"planning_result": "Rejected"}
+end
+
+' Check if operational intent is discoverable 
+TD -> DSS++: Retrieve discoverable operational intents\nPOST /dss/v1/operational_intent_references/query
+return 200, {"operational_intent_references": [...]}
+alt #GhostWhite Pass: Discoverable operational intent
+        TD -> TD: New operational intent found (save)
+else #Pink Failure: No operational intent found
+end
+ 
+' Transition operational intent to Activated state
+TD -> USSInter++: Inject operational intent (Activated)\nPUT /flight_plans/{flight_id}
+USS -> DSS++: PUT /dss/v1/operational_intent_references/{entity_id}
+return 201, {"subscribers": [], "operational_intent_reference": {...}}
+alt #GhostWhite Pass: Accepted
+        TD <-- USSInter: 200, {"planning_result": "Completed"}
+else #Pink Failure: Rejected
+        TD <-- USSInter--: 200, {"planning_result": "Rejected"}
+end
+
+' Check if operational intent is modified to Activated
+TD -> DSS++: Retrieve discoverable operational intents\nPOST /dss/v1/operational_intent_references/query
+return 200, {"operational_intent_references": [...]}
+alt #GhostWhite Pass: Operational intent modified to Activated state
+        TD -> TD: Check operational intent modified to Activated state (save)
+else  #Pink Failure: Operational intent not modified
+end
+ 
+' Inject conflicting, nonconforming operational intent in planned state
+TD -> OUSS++: Inject conflicting operational intent (Nonconforming)\nPUT /flight_plans/{flight_id}
+OUSS -> DSS++: PUT /dss/v1/operational_intent_references/{entity_id}
+return 201, {"subscribers": [], "operational_intent_reference": {...}}
+alt #GhostWhite Pass: Allowed conflict
+        TD <-- OUSS: 200, {"planning_result": "Completed"}
+else #Pink Failure: Disallowed conflict
+        TD <-- OUSS--: 200, {"planning_result": "Rejected"}
+end
+  
+OUSS -> USSInter++: Notify USS of conflicting operational intent (New)\nPOST /uss/v1/operational_intents{"operational_intent_id": [...]}
+return 204,{...}
+  
+' Verify new conflicting operational intent added
+TD -> DSS++: Retrieve discoverable operational intents\nPOST /dss/v1/operational_intent_references/query
+return 200, {"operational_intent_references": [...]}
+alt #GhostWhite Pass: Allowed conflict
+        TD -> TD: Check new Nonconforming operational intent added and conflicts with preexisting operational intent
+else #Pink Failure: Nonconforming operational intent not added or no conflict created 
+end
+
+TD -> TD: wait for 12 seconds
+
+TD -> USSInter++: Retrieve notification message log\nGET uss/v1/user_notifications?from=[ISO_DATETIME]&to=[ISO_DATETIME]
+return 200, {...}
+note right
+interUSS working draft
+"F3548-21 - User notification test"
+end note
+
+loop For every USS notification
+  alt #GhostWhite Pass: USS was notified
+    TD -> TD: User received required conflict notification within required time
+  else #Pink Failure: USS was not notified
+    TD -> TD: Notification not received or notification to user exceeds required time
+  end
+end
+
+' Remove conflicting operational intent
+TD -> OUSS++: Remove Nonconforming operational intent\nDELETE /uss/v1/inject/flights/{flight_id}
+OUSS -> DSS++: DELETE /dss/v1/operational_intent_references/{entity_id}/{ovn}
+return 200, {"subscribers": [], "operational_intent_reference": {...}}
+TD <-- OUSS--: 200, {"subscribers": [], "operational_intent_reference": {...}}
+  
+' Verify conflicting operational intent removed
+TD -> DSS++: Retrieve discoverable operational intents\nPOST /dss/v1/operational_intent_references/query
+return 200, {"operational_intent_references": [...]}
+
+alt #GhostWhite Pass: Conflicting operational intent removed
+        TD -> TD: Check conflicting Nonconforming operational intent does not exist
+else #Pink Failure: Conflicting operational intent still exists
+end
+
+
+== Test Case 2 - Test Modified Conflicting Operational Intent ==
+
+' Test Case 2: attempt to modify planned OI is rejected due to conflict and user notified
+  
+' Inject non-conflicting operational intent in planned state
+TD -> OUSS++: Inject non-conflicting operational intent (Planned)\nPUT /flight_plans/{flight_plan_id}
+' Query for existing operations
+OUSS -> DSS++: POST /dss/v1/operational_intent_references/query
+return 200, {"operational_intent_references": {...}}
+' Check existing operations
+OUSS -> USS++: GET /uss/v1/operational_intents/{entity_id}
+return 200, {"operational_intent": {...}}
+OUSS -> DSS++: PUT /dss/v1/operational_intent_references/{entity_id}
+return 201, {"subscribers": [], "operational_intent_reference": {...}}
+alt #GhostWhite Pass: Accepted
+        TD <-- OUSS: 200, {"planning_result": "Completed"}
+else #Pink Failure: Rejected
+        TD <-- OUSS--: 200, {"planning_result": "Rejected"}
+end
+ 
+OUSS -> USSInter++: Notify USS of new operational intent\nPOST /uss/v1/operational_intents{"operational_intent_id": [...]}
+return 204,{...}
+ 
+' Check if operational intent is discoverable 
+TD -> DSS++: Retrieve discoverable operational intents\nPOST /dss/v1/operational_intent_references/query
+return 200, {"operational_intent_references": [...]}
+alt #GhostWhite Pass: Discoverable operational intent
+        TD -> TD: New operational intent found (save)
+else #Pink Failure: No operational intent found
+end
+
+' Inject modified operational intent to conflict by changing to Nonconforming state
+TD -> OUSS++: Inject conflicting operational intent modification (Nonconforming)\nPUT /flight_plans/{flight_id}
+OUSS -> DSS++: PUT /dss/v1/operational_intent_references/{entity_id}
+return 201, {"subscribers": [], "operational_intent_reference": {...}}
+alt #GhostWhite Pass: Allowed conflict
+  TD <-- OUSS: 200, {"planned_response": "Completed"}
+else #Pink Failure: Disallowed conflict
+  TD <-- OUSS--: 200, {"planned_response": "Rejected"}
+end 
+ 
+OUSS -> USSInter++: Notify USS of conflicting operational intent (Modified)\nPOST /uss/v1/operational_intents{"operational_intent_id": [...]}
+return 204,{...}
+ 
+' Verify operational intent modified and created conflict
+TD -> DSS++: Retrieve discoverable operational intents\nPOST /dss/v1/operational_intent_references/query
+return 200, {"operational_intent_references": [...]}
+alt #GhostWhite Pass: Operational intent modified and created conflict
+        TD -> TD: Check that operational intent was modified to Nonconforming and created conflict with preexisting flight
+else #Pink Failure: No change made to operational intent
+end
+ 
+TD -> TD: wait for 12 seconds
+
+TD -> USSInter++: Retrieve notification message log\nGET uss/v1/user_notifications?from=[ISO_DATETIME]&to=[ISO_DATETIME]
+return 200, {...}
+note right
+interUSS working draft
+"F3548-21 - User notification test"
+end note
+
+loop For every USS notification
+  alt #GhostWhite Pass: USS was notified
+    TD -> TD: User received required conflict notification within required time
+  else #Pink Failure: USS was not notified
+    TD -> TD: User not notified or notification to user exceeds require time
+  end
+end
+ 
+
+== Teardown ==
+' Terminate operational intent
+TD -> OUSS++: Remove operational intent\nDELETE /flight_plans/{flight_id}
+OUSS -> DSS++: DELETE /dss/v1/operational_intent_references/{entity_id}/{ovn}
+return 200, {"subscribers": [], "operational_intent_reference": {...}}
+TD <-- OUSS--: 200, {"subscribers": [], "operational_intent_reference": {...}}
+
+TD -> USSInter++: Remove operational intent\nDELETE /flight_plans/{flight_id}
+USS -> DSS++: DELETE /dss/v1/operational_intent_references/{entity_id}/{ovn}
+return 200, {"subscribers": [], "operational_intent_reference": {...}}
+TD <-- USSInter--: 200, {"subscribers": [], "operational_intent_reference": {...}}
+
+@enduml
