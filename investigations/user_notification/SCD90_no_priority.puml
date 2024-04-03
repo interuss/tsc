@@ -12,11 +12,9 @@ skinparam shadowing false
 center header Strategic Conflict Detection
 title Notification to Operator of New and Modified Operational Intent Due to Disallowed Equal Priority Conflict
 
-box ""Test Framework""
-    participant "Test Driver" as TD
-    participant "Mock USS" as MUSS
-    participant "DSS" as DSS
-end box
+participant "Test Driver" as TD
+participant "Other USS" as OUSS
+participant "DSS" as DSS
 box ""USS under test""
     participant "USS" as USS
     participant "Automated Testing Interfaces" as USSInter
@@ -26,19 +24,19 @@ end box
 
 == Setup ==
 ' clear area
-TD -> MUSS++: Inject clear area request\nPOST /clear_area_requests
+TD -> OUSS++: Inject clear area request\nPOST /clear_area_requests
 return 200, {"outcome": {"success": true, "message": {}, "details": {}}}
-TD -> USS++: Inject clear area request\nPOST /clear_area_requests
+TD -> USSInter++: Inject clear area request\nPOST /clear_area_requests
 return 200, {"outcome": {"success": true, "message": {}, "details": {}}}
 
 ' inject operational intent in planned state
-TD -> MUSS++: Inject operational intent (Planned)\nPUT /flight_plans/{flight_plan_id}
-MUSS -> DSS++: PUT /dss/v1/operational_intent_references/{entity_id}
+TD -> OUSS++: Inject operational intent (Planned)\nPUT /flight_plans/{flight_plan_id}
+OUSS -> DSS++: PUT /dss/v1/operational_intent_references/{entity_id}
 return 201, {"subscribers": [], "operational_intent_reference": {...}}
 alt #GhostWhite Pass: Completed
-        TD <-- MUSS: 200, {"planning_result": "Completed"}
+        TD <-- OUSS: 200, {"planning_result": "Completed"}
 else #Pink Failure: Rejected
-        TD <-- MUSS--: 200, {"planning_result": "Rejected"}
+        TD <-- OUSS--: 200, {"planning_result": "Rejected"}
 end
  
  
@@ -50,17 +48,17 @@ alt discoverable operational intent
 else operational intent is new
 end
  
-== Test Case 1 ==
+== Test Case 1 - Test New Conflicting Operational Intent ==
  
-
 ' test case 1: attempt to create OI with conflict is rejected and user notified 
+
 ' inject operational intent in planned state
 TD -> USSInter++: Inject conflicting operational intent (Planned)\nPUT /flight_plans/{flight_plan_id}
 ' Query for existing operations
 USS -> DSS++: POST /dss/v1/operational_intent_references/query
 return 200, {"operational_intent_references": {...}}
 ' Check existing operation
-USS -> MUSS++: GET /uss/v1/operational_intents/{entity_id}
+USS -> OUSS++: GET /uss/v1/operational_intents/{entity_id}
 return 200, {"operational_intent": {...}}
 alt #GhostWhite Pass: Disallowed conflict
         TD <-- USSInter: 200, {"planning_result": "Rejected"}
@@ -93,7 +91,7 @@ else #Pink Failure: USS did not send notification to user or notification not se
 end
 end 
 
- == Test Case 2 ==
+== Test Case 2 - Test Modified Conflicting Operational Intent ==
 
 ' test case 2: attempt to modify planned OI is rejected due to conflict and user notified
 
@@ -103,7 +101,7 @@ TD -> USSInter++: Inject non-conflicting operational intent (Planned)\nPUT /flig
 USS -> DSS++: POST /dss/v1/operational_intent_references/query
 return 200, {"operational_intent_references": {...}}
 ' Check existing operation
-USS -> MUSS++: GET /uss/v1/operational_intents/{entity_id}
+USS -> OUSS++: GET /uss/v1/operational_intents/{entity_id}
 return 200, {"operational_intent": {...}}
 USS -> DSS++: PUT /dss/v1/operational_intent_references/{entity_id}
 return 201, {"subscribers": [], "operational_intent_reference": {...}}
@@ -127,7 +125,7 @@ TD -> USSInter++: Inject conflicting operational intent modification (Planned)\n
 USS -> DSS++: POST /dss/v1/operational_intent_references/query
 return 200, {"operational_intent_references": {...}}
 ' Check existing operation
-USS -> MUSS++: GET /uss/v1/operational_intents/{entity_id}
+USS -> OUSS++: GET /uss/v1/operational_intents/{entity_id}
 return 200, {"operational_intent": {...}}
 alt #GhostWhite Pass: Disallowed conflict 
         TD <-- USSInter: 200, {"planning_result": "Rejected"}
@@ -171,10 +169,10 @@ end
  
 == Teardown ==
 ' terminate operational intent
-TD -> MUSS++: Remove operational intent\nDELETE /flight_plans/{flight_plan_id}
-MUSS -> DSS++: DELETE /dss/v1/operational_intent_references/{entity_id}/{ovn}
+TD -> OUSS++: Remove operational intent\nDELETE /flight_plans/{flight_plan_id}
+OUSS -> DSS++: DELETE /dss/v1/operational_intent_references/{entity_id}/{ovn}
 return 200, {"subscribers": [], "operational_intent_reference": {...}}
-TD <-- MUSS--: 200, {"planning_result": "Completed"}
+TD <-- OUSS--: 200, {"planning_result": "Completed"}
 
 ' terminate operational intent
 TD -> USSInter++: Remove operational intent\nDELETE /flight_plans/{flight_plan_id}
