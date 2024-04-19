@@ -8,7 +8,6 @@ skinparam SequenceGroupFontColor darkblue
 skinparam SequenceBoxBackgroundColor White
 skinparam shadowing false
 
-
 center header Strategic Conflict Detection
 title Notification to Operator of Existing Operational Intent Due to Disallowed Conflict with Equal Priority New and Modified Operational Intent
 
@@ -20,21 +19,16 @@ box ""USS under test""
 end box
 
 
-
 == Setup ==
-
 ' Clear area
-
 TD -> USSInter++: Inject clear area request\nPOST /clear_area_requests
 return 200, {"outcome": {"success": true, "message": {}, "details": {}}}
 
 
 == Test Case 1 - Test New Conflicting Operational Intent ==
 
-' Test Case 1: Attempt to create OI with conflict is rejected and user notified 
-
-' Inject operational intent in planned state
-TD -> USSInter++: Inject operational intent (Planned)\nPUT /flight_plans/{flight_id}
+' Inject control operational intent in planned state
+TD -> USSInter++: Inject control operational intent (Planned)\nPUT /flight_plans/{flight_id}
 USS -> DSS++: PUT /dss/v1/operational_intent_references/{entity_id}
 return 201, {"subscribers": [], "operational_intent_reference": {...}}
 alt #GhostWhite Pass: Accepted
@@ -52,8 +46,8 @@ else operational intent is new
 end
 
 
-' inject new operational intent in planned state
-TD -> USSInter++: Inject operational intent (Planned)\nPUT /flight_plans/{flight_id}
+' Inject new conflicting operational intent in planned state
+TD -> USSInter++: Inject conflicting operational intent (Planned)\nPUT /flight_plans/{flight_id}
 alt #GhostWhite Pass: Disallowed conflict
   TD <-- USSInter: 200, {"planning_result": "Rejected"}
 else #Pink Failure: Allowed conflict
@@ -85,13 +79,11 @@ loop For every USS notification
   end
 end
 
-== Test Case 2 - Test Modified Conflicting Operational Intent ==
-
-' test case 2: attempt to modify planned OI is rejected due to conflict and user notified
+ == Test Case 2 - Test Modified Conflicting Operational Intent ==
   
 ' inject operational intent in planned state
-TD -> USSInter++: Inject operational intent (Planned)\nPUT /flight_plans/{flight_plan_id}
-USSInter -> DSS++: PUT /dss/v1/operational_intent_references/{entity_id}
+TD -> USSInter++: Inject non-conflicting operational intent (Planned)\nPUT /flight_plans/{flight_plan_id}
+USS -> DSS++: PUT /dss/v1/operational_intent_references/{entity_id}
 return 201, {"subscribers": [], "operational_intent_reference": {...}}
  alt #GhostWhite Pass: Accepted
         TD <-- USSInter: 200, {"planning_result": "Completed"}
@@ -99,7 +91,7 @@ else #Pink Failure: Rejected
         TD <-- USSInter--: 200, {"planning_result": "Rejected"}
 end
   
-'check if operational intent is discoverable (determine if insert or update)
+' Check if operational intent is discoverable (determine if insert or update)
 TD -> DSS++: Retrieve discoverable operational intents\nPOST /dss/v1/operational_intent_references/query
 return 200, {"operational_intent_references": [...]}
 alt discoverable operational intents
@@ -107,8 +99,8 @@ alt discoverable operational intents
 else new and existing operational intents
 end
   
-' inject modified operational intent to conflict
-TD -> USSInter++: Inject operational intent modification (Planned)\nPUT /flight_plans/{flight_id}
+' Inject modified operational intent to conflict
+TD -> USSInter++: Inject conflicting operational intent modification (Planned)\nPUT /flight_plans/{flight_id}
 alt #GhostWhite Pass: Disallowed conflict
   TD <-- USSInter: 200, {"planned_response": "Rejected"}
 else #Pink Failure: Allowed conflict
@@ -152,12 +144,12 @@ end
 == Teardown ==
 ' terminate operational intent
 TD -> USSInter++: Remove first operational intent\nDELETE /flight_plans/{flight_id}
-USSInter -> DSS++: DELETE /dss/v1/operational_intent_references/{entity_id}/{ovn}
+USS -> DSS++: DELETE /dss/v1/operational_intent_references/{entity_id}/{ovn}
 return 200, {"subscribers": [], "operational_intent_reference": {...}}
 TD <-- USSInter--: 200, {"subscribers": [], "operational_intent_reference": {...}}
 
 TD -> USSInter++: Remove second operational intent\nDELETE /flight_plans/{flight_id}
-USSInter -> DSS++: DELETE /dss/v1/operational_intent_references/{entity_id}/{ovn}
+USS -> DSS++: DELETE /dss/v1/operational_intent_references/{entity_id}/{ovn}
 return 200, {"subscribers": [], "operational_intent_reference": {...}}
 TD <-- USSInter--: 200, {"subscribers": [], "operational_intent_reference": {...}}
 
