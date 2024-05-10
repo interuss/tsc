@@ -10,7 +10,7 @@ skinparam shadowing false
 
 
 center header Strategic Conflict Detection
-title Operational Intent Details Subscription Push Notification
+title SCD0085: Operational Intent Details Subscription Push Notification
 
 participant "Test Driver" as TD
 participant "Other USS" as OUSS
@@ -21,11 +21,12 @@ box ""USS under test""
 end box
 
 
-
-
 == Setup ==
 ' clear area
 TD -> OUSS++: Inject clear area request\nPOST /uss/v1/inject/clear_area_request
+return 200, {"outcome": {"success": true, "message": {}, "details": {}}}
+
+TD -> USSInter++: Inject clear area request\nPOST /uss/v1/inject/clear_area_request
 return 200, {"outcome": {"success": true, "message": {}, "details": {}}}
 
 ' record interactions for the endpoint
@@ -36,14 +37,13 @@ TBD endpoint receiving the operational intent details notification
 end note
 
 ' inject OUSS area of interest subscription
-TD -> DSS++: Inject OUSS area of interest subscription for operational intents\nPUT /dss/v1/subscriptions/{subscription_id}
+TD -> DSS++: Inject area of interest subscription for operational intents\nPUT /dss/v1/subscriptions/{subscription_id}
 return 200, {"subscription": {...}, "operational_intent_references": [], "constraint_references": []}
-
 
 
 == Test ==
 ' inject SUT planned operational intent modification (upsert)
-TD -> USSInter++: Inject operational intent(planned)\nPUT /uss/v1/inject/flights/{flight_id}
+TD -> USSInter++: Inject operational intent in area of interest (planned)\nPUT /uss/v1/inject/flights/{flight_id}
 USS -> DSS++: PUT /dss/v1/operational_intent_references/{entity_id}
 return 201, {"subscribers": [], "operational_intent_reference": {...}}
 TD <-- USSInter--: 200, {"planning_result": "Completed", "flight_plan_status": "Planned", ...}
@@ -63,10 +63,10 @@ TD -> OUSS: Retrieve recorded interactions\nGET /uss/v1/mocks/record/{endpoint_i
 return 200, {"interactions": [...]}
 
 loop For every recorded operational intent changed interaction
-    alt #GhostWhite Pass: OUSS was notified
-        TD -> TD--: recorded interaction matches the USS URL
-    else #Pink Failure: OUSS was not notified
-        TD -> TD--: No recorded interaction matches the USS URL
+    alt #GhostWhite Pass: Other USS was notified
+        TD -> TD--: recorded interaction matches the USS-under-test URL
+    else #Pink Failure: Other USS was not notified
+        TD -> TD--: No recorded interaction matches the USS-under-test URL
     end
 end
 
@@ -79,4 +79,3 @@ return 200, {"subscribers": [], "operational_intent_reference": {...}}
 TD <-- USSInter--: 200, {"planning_result": "Completed", "flight_plan_status": "Closed", ...}
 
 @enduml
- 
