@@ -20,7 +20,7 @@ Some operational intents are required to be covered by subscriptions (SCD0080). 
 
 In this option, expired subscriptions that are not dependants of any operational intent are garbage-collected from the system (removed entirely from the database).  Expired subscriptions that are dependants of an overdue operational intent are not deleted from the database (because they are an essential component of the still-existent associated operational intent), but they are filtered so they don't appear in search results.
 
-The implementation of this option would likely involve a periodic garbage collector that fully deletes applicable subscriptions from the system, similar to the mechanism for remote ID.  In the period between when a subscription expires and when it is actually deleted from the database by the garbage collector, 
+The implementation of this option would likely involve a periodic garbage collector that fully deletes applicable subscriptions from the system, similar to the mechanism for remote ID.  In the period between when a subscription expires and when it is actually deleted from the database by the garbage collector, the expired subscriptions will still be returned.
 
 ### Option 2: Hide subscriptions without dependencies
 
