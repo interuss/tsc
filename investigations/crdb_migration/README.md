@@ -45,6 +45,12 @@ The biggest risk of the application-level consensus approach [identified early o
 ## YugabyteDB
 
 The alternative of swapping out CRDB for [YugabyteDB](https://www.yugabyte.com/) was explored and all known-unknowns were resolved positively (none of resolutions of those unknowns would present serious difficulties to taking this approach).
+YugabyteDB offers a similar feature set as CockroachDB with an Apache 2 license similar to the InterUSS products. In addition, current paradigms, used for instance for pooling, can be mostly preserved and it should not be a big stretch for users to swap technologies.
+At this point, we do not foresee the need to provide support for migrating the data from one technology to the other. The assumption is that current deployments will have to repopulate the new DSS when switching.
+
+Yugabyte proposes some key improvements compared to CockroachDB such as the ability to reload certificates without stopping nodes limiting the development and operational efforts to perform updates of DSS pool participants accepted CA certificates.
+
+Though, some indexation mechanisms such as the inverted index are still not fully implemented. It will require some rework of SQL schemas and queries to ensure the performance of the DSS is comparable.
 
 ## Decision
 
