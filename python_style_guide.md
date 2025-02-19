@@ -14,6 +14,15 @@ Its style choices take precedence over all other recommendations here to
 maintain the ability to always be confident of not introducing invalid
 formatting using `make format`.
 
+## [isort](https://pycqa.github.io/isort/)
+
+isort automatically sort imports in Python code and can be invoked with `make format`.
+Its style choices take precedence over all other recommendations here to
+maintain the ability to always be confident of not introducing invalid
+formatting using `make format`.
+
+It's configured to use a Black compatible format.
+
 ## Type annotations
 
 The following should almost always have type annotations according to
