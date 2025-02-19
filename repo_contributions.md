@@ -119,7 +119,7 @@ If a contributor fails to [resolve a failing CI check](#troubleshooting-a-failed
 
 ### Mark PR ready for review
 
-Once a contributor [verifies that the continuous integration tests for their PR have passed](#check-ci-results) or otherwise considers the PR ready for review, the contributor should mark the PR as ready for review using the link at the end of the PR page.
+Once a contributor [verifies that the continuous integration tests for their PR have passed](#check-ci-results) or otherwise considers the PR ready for review, the contributor should mark the PR as ready for review using the link at the end of the PR page.  This will prompt an InterUSS [Committer](CONTRIBUTING.md#committers) to [review the pull request](review_guidelines.md).
 
 InterUSS reviewers will generally not begin review of draft PRs until they are marked ready for review.
 
@@ -152,6 +152,7 @@ Once an [InterUSS committer](CONTRIBUTING.md#committers) approves the PR, they o
 1. Contributions should generally follow the [InterUSS general style guide](general_style_guide.md) and the [InterUSS Python style guide](python_style_guide.md) for Python code.
 
 1. The size/complexity of individual PRs is a key factor with respect to the quality and efficiency of the reviews. When [Large Contributions](#large-contributions) are required, they should be structured as a series of small and focused PRs. Here are some helpful references:
+    - [Small CLs (Google)](https://google.github.io/eng-practices/review/developer/small-cls.html)
     - [Strategies For Small, Focused Pull Requests, Steve Hicks](https://artsy.github.io/blog/2021/03/09/strategies-for-small-focused-pull-requests/)
     - [The Art of Small Pull Requests, David Wilson](https://essenceofcode.com/2019/10/29/the-art-of-small-pull-requests/)
 
