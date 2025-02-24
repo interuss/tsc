@@ -20,6 +20,10 @@ The current Committers of the project are:
 * Michael Barroco
 * Mickaël Misbach
 
+### Review guidelines
+
+When reviewing pull requests, Committers follow the [review guidelines](review_guidelines.md).
+
 ## Technical Steering Committee
 
 The voting members of the Technical Steering Committee are:
