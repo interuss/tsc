@@ -48,11 +48,17 @@ Sometimes, there are multiple reasonable approaches to solve a particular type o
 
 InterUSS also has a number of strategic objectives (arising from the Project Charter, Technical Charter, governing board, technical steering committee, and other sources) and changes contrary to these objectives are likely to lower the quality of the affected repository when judged according to InterUSS objectives.
 
+#### Behavior under abnormal conditions
+
+In addition to desired behavior occurring under normal conditions, abnormal conditions should also result in intended behavior.  If an unexpected but possible input or condition would cause undesirable behavior, those circumstances should be detected and handled gracefully instead.  For instance, if an input could occasionally be None, it should be checked for value before dereferencing a field to gracefully handle the lack of the desired field.
+
 ### Completeness
 
-There is no expectation for "completeness" in a pull request -- Contributors are [encouraged](repo_contributions.md#general-principles) to make small PRs, so approval should not usually be withheld because the reviewer would like something added to the pull request.
+There is no expectation for feature or functionality "completeness" in a pull request -- Contributors are [encouraged](repo_contributions.md#general-principles) to make small PRs, so approval should not usually be withheld because the reviewer would like something added to the pull request.
 
 The addition of something to a pull request can be suggested, however, when that addition would resolve another issue that would hurt/regress the repository if the pull request were merged without it (e.g., lack of verification).
+
+The PR should completely implement its intended scope of changes.  For instance, a PR should not add documentation claiming X when X would actually be added in a separate, future PR.  The contents of the PR should all be relevant to the subject of the PR; unrelated changes should be partitioned into a separate PR to keep the nature of each PR clearly understandable.
 
 ### Consensus
 
