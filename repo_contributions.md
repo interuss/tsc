@@ -4,6 +4,11 @@ Welcome to InterUSS and thank you for your interest in contributing to its repos
 
 In order to maximize the quality of contributions while keeping the time and energy spent by contributors and committers to a minimum, we kindly ask you to adhere to the practices described below.
 
+General open-source contribution guidelines can be found at:
+
+* [Open Source Guide's Host to Contribute to Open Source](https://opensource.guide/how-to-contribute)
+* [Cloud Native open-source contributing](https://contribute.cncf.io/contributors/getting-started/)
+
 ## Contributing procedure
 
 ![Contributing procedure flowchart](assets/contributing_procedure.svg)

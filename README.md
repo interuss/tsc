@@ -22,6 +22,12 @@ The InterUSS Technical Charter is located in [CHARTER.md](CHARTER.md).  Note tha
 
 ## Collaboration Tools
 
+### GitHub
+
+GitHub is the primary tool used for collaborative development and usage of InterUSS products.  The [InterUSS GitHub organization](https://github.com/interuss) contains [multiple repositories](https://github.com/orgs/interuss/repositories) housing the various projects developed by InterUSS.
+
+Usage instructions are generally accessible from the README at the base of each repository.  To receive notifications about a product, click the Watch button near the upper right of its repository page (visible when logged into a GitHub account) and select the information of interest (e.g., issues, pull requests, releases, discussions, security alerts).
+
 ### Slack
 
 The InterUSS project maintains a [Slack Workspace](https://interuss.slack.com) for communication and collaboration.  This workspace is [open for anyone to join](https://join.slack.com/t/interuss/shared_invite/enQtNzg0OTcxOTIyNjc0LTQyYzM1MTljYWU1NDRkNjFkZmFlYjA0YTgwNjQ5N2U5OTVhMzBlZjY4NWE3YTgwYzVjNzg3ZjE5ZjRjM2M0ODQ).  Once you join the Slack Workspace, you can participate in any public channels. 
