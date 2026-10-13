@@ -17,6 +17,7 @@ By contributing to InterUSS, you agree that your contributions will be licensed 
 The current Committers of the project are:
 
 * Benjamin Pelletier
+* Maximilien Cuony
 * Michael Barroco
 * Mickaël Misbach
 
