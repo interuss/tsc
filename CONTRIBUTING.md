@@ -16,11 +16,11 @@ By contributing to InterUSS, you agree that your contributions will be licensed 
 
 The current Committers of the project are:
 
-* Mariem Baccari
-* Michael Barroco
-* Maximilien Cuony
-* Mickaël Misbach
-* Benjamin Pelletier
+* Mariem Baccari (@MariemBaccari)
+* Michael Barroco (@barroco)
+* Maximilien Cuony (@the-glu)
+* Mickaël Misbach (@mickmis)
+* Benjamin Pelletier (@BenjaminPelletier)
 
 ### Review guidelines
 
