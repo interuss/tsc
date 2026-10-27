@@ -180,3 +180,51 @@ When a [design document](#create-or-update-design-doc) is warranted based on the
 #### Work and PRs breakdown
 
 An [InterUSS committer](https://github.com/interuss/tsc/blob/main/CONTRIBUTING.md#committers) may require large contributions to be broken down into smaller packages, allowing small PRs to be reviewed progressively. See this page for an actual [example](https://github.com/interuss/dss/wiki/Updating-SCD-API).
+
+## PR stacking
+
+PR stacking is generally discouraged.  PR stacking is the practice of building changes (changes B) on top of the changes in an unmerged PR (changes A) and publicly proposing adoption of the combination of both sets of changes (A+B) before the first set of changes (A) have been adopted.
+
+The reasoning behind this recommendation is primarily based on the principle of [small PRs](#general-principles).  If a contributor asks for a review on A+B, then the reviewer must consider changes A simultaneously with their consideration of changes B.  This is inefficient because reviewing A+B is much harder than reviewing A + reviewing B, which is the primary motivation behind the principle of small PRs.
+
+The contributor might ask the reviewer to consider just B when reviewing the second PR, but this is also problematic.  If B does not depend on the outcome of A, then B does not need to be stacked on A and unstacking will substantially reduce required reviewer effort.  If B does depend on the outcome of A, then the changes in B are not complete because they may need adjustment if any changes are made to A.  A reviewer could start reviewing B early (before it is fully complete), but they could not approve A+B even if they were fully satisfied with "B, assuming A" since A cannot yet be assumed.  Starting review early before a set of changes is fully complete is less efficient (requires more total time) than starting review when a set of changes is fully complete.  So, contributors should default to not request review until a set of changes is fully complete, and requests to start review early should be rare (see exceptions below).
+
+A contributor might also consider stacking A+B on A to provide better context to reviewers while they are reviewing A.  This is generally discouraged as well.  If the content in A is not understandable without the more complete implementation in A+B, then A is generally not small and focused.  When a PR is not small and focused, the guidelines for large contributions (see above) generally apply and an Issue, design doc, or some other means of establishing shared high-level context may be necessary.
+
+### PR stacking motivation
+
+In general, developers are naturally single-threaded so solo development often looks like a linear sequence of changes:
+
+```mermaid
+flowchart LR
+    A --> B --> C --> D --> E --> F --> G
+```
+
+> _"Ok, I want to build G.  That needs D and E, so I'll write A then B then D first.  Oh, actually it looks like I'll need to build C in order to build D which I didn't think of at first, so I'll write C before writing D.  Now that I have C, I see that's useful to build E, so I'll reuse C there.  Oh, I forgot about F, so I'll build that before G, and that will finally let me build G."_
+
+It is therefore natural to want to publish those changes as a stack: if the developer has built all the way to G, this is the sequence of steps they took to get to G and they know G works, so the easiest path for the developer is to ask for review on a linear stack of changes from A to G.  However, this is rarely how all the components depend on each other; dependencies usually look something like the diagram below:
+
+```mermaid
+flowchart LR
+    A --> B --> D --> G
+    C --> D
+    C --> E
+    E --> G
+    F --> G
+```
+
+The practice of small PRs consists primarily of recognizing that A, C, and F are all small, focused changes without dependencies, so they can be proposed simultaneously without any PR stacking even though C was initially developed after both B and A, and F was initially developed after A-E.  After C is merged, E becomes a small, focused change without dependencies, so it can be proposed regardless of the status of A, B, D, or F.  After A is merged, B becomes a small, focused change without dependencies, so it can be proposed regardless of the status of C, E, or F.
+
+### Exceptions
+
+The recommendation against PR stacking is not absolute and contributors are free to stack PRs when appropriate, as long as the contributor understands the guidance above and believes their situation warrants a deviation.  Situations that may warrant stacked PRs include:
+
+#### Urgency
+
+If a complete feature is needed urgently and a developer has already built the entire feature, small PRs constructing that feature can be stacked to allow reviewers to "read ahead" on later PRs in the stack while the contributor addresses issues on earlier PRs.  This reduces the review time of later PRs at the expense of more difficult reviews and the risk of re-review due to substantive changes on earlier PRs.  Urgency may justify this tradeoff since it decreases the lead time to feature release at the expense of requiring more total contribution and review time/resources.
+
+#### Offset contributor/reviewer schedules
+
+If the contributor and reviewer have offset schedules such that only one round of feedback can be provided per working day, then a long series-sequence of PRs could take a long time to merge even when no changes are necessary for any PR.  In this case, stacking multiple PRs could allow the reviewer to review, approve, and merge multiple PRs in a single working day if no changes were needed.  A reviewer following this pattern would generally treat all subsequent PRs as not ready for review until the prerequisite PRs were fully merged.  So, the reviewer would only review one open PR at a time until that PR was merged.
+
+This pattern is only advantageous when no changes are needed in the first PR(s) and a reviewer would generally stop reviewing the rest of the stack as soon as they found adjustments needed in a PR.  This pattern is not useful if action from the contributor is needed in between "merging a PR" and "the next PR being ready to merge".
