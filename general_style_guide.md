@@ -126,3 +126,9 @@ Documentation:
 
 Code:
 * ✅ `conflicting_flight_1`
+
+## Backward compatibility
+
+Changes that would break existing usage (for instance, renamed or moved fields, configuration options, interfaces or files) should generally maintain backward compatibility. This can be done by accepting both the old and new forms, by adding checks that detect the old form and handle it, or by leaving pointers from the old location to the new one.
+
+These backward compatibility mechanisms may generally be removed one year after the change that introduced them.
