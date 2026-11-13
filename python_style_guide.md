@@ -7,21 +7,13 @@ should generally take precedence.
 
 General style guidelines may be found [in a separate document](general_style_guide.md).
 
-## [Black](https://black.readthedocs.io/en/stable/)
+## [Ruff](https://docs.astral.sh/ruff/)
 
-Black automatically formats Python code and can be invoked with `make format`.
+Ruff automatically formats Python code, sorts imports and fixes lint issues, and
+can be invoked with `make format`.
 Its style choices take precedence over all other recommendations here to
 maintain the ability to always be confident of not introducing invalid
 formatting using `make format`.
-
-## [isort](https://pycqa.github.io/isort/)
-
-isort automatically sort imports in Python code and can be invoked with `make format`.
-Its style choices take precedence over all other recommendations here to
-maintain the ability to always be confident of not introducing invalid
-formatting using `make format`.
-
-It's configured to use a Black compatible format.
 
 ## Type annotations
 
